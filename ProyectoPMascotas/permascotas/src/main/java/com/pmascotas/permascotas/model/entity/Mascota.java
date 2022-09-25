@@ -23,6 +23,8 @@ public class Mascota {
     private char tipoMascota;
     @Column(name = "especie")
     private String especie;
+    @Column(name = "raza")
+    private String raza;
     @Column(name = "tamanio")
     private String tamanio;
     @Column(name = "sexo")
@@ -89,6 +91,14 @@ public class Mascota {
 
     public void setEspecie(String especie) {
         this.especie = especie;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public void setRaza(String raza) {
+        this.raza = raza;
     }
 
     public String getTamanio() {
