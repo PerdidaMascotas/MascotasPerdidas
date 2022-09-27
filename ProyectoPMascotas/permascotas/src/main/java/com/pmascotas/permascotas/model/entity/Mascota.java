@@ -35,8 +35,8 @@ public class Mascota {
     private String color;
     @Column(name = "chip")
     private boolean chip;
-    @Column(name = "comentario")
-    private String comentario;
+    @Column(name = "comentarios")
+    private String comentarios;
     @Column(name = "fecha_registro")
     private Integer fechaRegistro;
     @Column(name = "imagen_url")
@@ -141,12 +141,12 @@ public class Mascota {
         this.chip = chip;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getComentarios() {
+        return comentarios;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
     }
 
     public Integer getFechaRegistro() {

@@ -18,8 +18,9 @@ public class UsuarioSevice {
     public Usuario guardarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+
     // Consultar un usuario
-    public Optional<Usuario> buscarUsuaro(Long idUsuario) {
+    public Optional<Usuario> consultarUsuarioPorId(String idUsuario) {
         return usuarioRepository.findById(idUsuario);
     }
 
@@ -28,9 +29,13 @@ public class UsuarioSevice {
     return  (ArrayList<Usuario>) usuarioRepository.findAll();
     }
 
-    // Eliminar un usuario
-    public void eliminarUsuario(Usuario usuario) {
-        usuarioRepository.delete(usuario);
+    // Elimiar usuario
+    public boolean eliminarUsuario(String idUsuario) {
+        try {
+            usuarioRepository.deleteById(idUsuario);
+            return true;
+        } catch(Exception err) {
+            return false;
+        }
     }
-    
 }
