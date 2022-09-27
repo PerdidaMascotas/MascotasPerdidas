@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmascotas.permascotas.model.entity.Usuario;
-import com.pmascotas.permascotas.service.UsuarioSevice;
+import com.pmascotas.permascotas.service.UsuarioService;
 
 @RestController
 @RequestMapping("/user")
 public class UsuarioController {
     @Autowired
-    UsuarioSevice usuarioSevice;
+    UsuarioService usuarioService;
 
     // Crear usuario
     @PostMapping()
     public Usuario guardarUsuario(@RequestBody Usuario usuario) {
-        return usuarioSevice.guardarUsuario(usuario);
+        return usuarioService.guardarUsuario(usuario);
     }
 
     // Consultar usuario
     @GetMapping( path = "/{idUsuario}")
     public Optional<Usuario> obtenerUsuarioPorId(@PathVariable("idUsuario") String idUsuario) {
-        return this.usuarioSevice.consultarUsuarioPorId(idUsuario);
+        return this.usuarioService.consultarUsuarioPorId(idUsuario);
     }
 
     // Eliminar un usuario
     @DeleteMapping( path = "/{idUsuario}")
     public String eliminarUsuarioPorId(@PathVariable("idUsuario") String idUsuario){
-        boolean ok = this.usuarioSevice.eliminarUsuario(idUsuario);
+        boolean ok = this.usuarioService.eliminarUsuario(idUsuario);
         if (ok){
             return "Se eliminó el usuario con id" + idUsuario;
         }else{

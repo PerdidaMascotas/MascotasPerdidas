@@ -10,7 +10,7 @@ import com.pmascotas.permascotas.model.entity.Usuario;
 import com.pmascotas.permascotas.repository.UsuarioRepository;
 
 @Service
-public class UsuarioSevice {
+public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
  
