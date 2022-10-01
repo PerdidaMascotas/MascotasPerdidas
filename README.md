@@ -1,4 +1,6 @@
-# MascotasPerdidas
+# MascotasPerdidas 
+Trello: https://trello.com/w/proyectoequipo41g1/home
+#
 
 | GESTIÓN DE LA CONFIGURACIÓN | 
 | ------------- | 
