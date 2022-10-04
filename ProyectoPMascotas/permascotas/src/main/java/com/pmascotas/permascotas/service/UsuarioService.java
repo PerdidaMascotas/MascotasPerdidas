@@ -9,7 +9,11 @@ import com.pmascotas.permascotas.model.entity.Usuario;
 import com.pmascotas.permascotas.repository.UsuarioRepository;
 
 @Service
+<<<<<<< HEAD
 public class UsuarioService{
+=======
+public class UsuarioService {
+>>>>>>> 93fda8ce6310015dcc6d95399054419aefaea6a8
     @Autowired
     UsuarioRepository usuarioRepository;
  
