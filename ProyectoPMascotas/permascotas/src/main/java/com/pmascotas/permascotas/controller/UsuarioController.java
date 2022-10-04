@@ -49,5 +49,4 @@ public class UsuarioController {
             return "credenciales_incorrectas";
         }
     }
-
 }
