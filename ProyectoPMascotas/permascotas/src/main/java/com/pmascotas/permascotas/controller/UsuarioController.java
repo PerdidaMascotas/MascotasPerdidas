@@ -1,45 +1,53 @@
 package com.pmascotas.permascotas.controller;
-
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.pmascotas.permascotas.model.entity.Mascota;
 import com.pmascotas.permascotas.model.entity.Usuario;
-import com.pmascotas.permascotas.service.UsuarioSevice;
+import com.pmascotas.permascotas.service.MascotaService;
+import com.pmascotas.permascotas.service.UsuarioService;
 
-@RestController
-@RequestMapping("/user")
+@Controller
 public class UsuarioController {
     @Autowired
-    UsuarioSevice usuarioSevice;
+    UsuarioService usuarioService;
+    @Autowired
+    MascotaService mascotaService;
 
-    // Crear usuario
-    @PostMapping()
-    public Usuario guardarUsuario(@RequestBody Usuario usuario) {
-        return usuarioSevice.guardarUsuario(usuario);
+    @GetMapping({ "/", "HOME", "index" })
+    public String home(Model model) {
+        List<Mascota> mascotas = mascotaService.consultarMascotas();
+        model.addAttribute("allPets", mascotas);
+        return "home";
     }
 
-    // Consultar usuario
-    @GetMapping( path = "/{idUsuario}")
-    public Optional<Usuario> obtenerUsuarioPorId(@PathVariable("idUsuario") String idUsuario) {
-        return this.usuarioSevice.consultarUsuarioPorId(idUsuario);
+    @GetMapping("/irSesion")
+    public String oauth(Model model) {
+        model.addAttribute("usuarioLogueado", new Usuario());
+        return "inicio_sesion";
     }
 
-    // Eliminar un usuario
-    @DeleteMapping( path = "/{idUsuario}")
-    public String eliminarUsuarioPorId(@PathVariable("idUsuario") String idUsuario){
-        boolean ok = this.usuarioSevice.eliminarUsuario(idUsuario);
-        if (ok){
-            return "Se eliminó el usuario con id" + idUsuario;
-        }else{
-            return "No pudo eliminar el usuario con id" + idUsuario;
+
+    @PostMapping("/iniciarSesion")
+    public String iniciarSesion(@ModelAttribute("usuarioLogueado") Usuario user, Model model) {
+        System.out.println("idUsuario:........: "+user.getIdUsuario());
+        Usuario usuario = usuarioService.findByUserPassword(user.getIdUsuario(), user.getPassword());
+        
+        if (usuario.getIdUsuario() != null) {
+            model.addAttribute("idUsuario", usuario.getIdUsuario());
+            model.addAttribute("email", usuario.getEmail());
+            model.addAttribute("password", usuario.getPassword());
+            System.out.println("ID_USUARIO:........"+usuario.getIdUsuario());
+            model.addAttribute("misMascotas", mascotaService.getPetsByUser(usuario.getIdUsuario()));
+            return "mis_mascotas";
+        } else {
+            return "credenciales_incorrectas";
         }
     }
+
 }

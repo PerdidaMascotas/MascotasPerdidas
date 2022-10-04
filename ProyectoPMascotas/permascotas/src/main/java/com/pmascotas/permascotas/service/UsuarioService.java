@@ -1,6 +1,5 @@
 package com.pmascotas.permascotas.service;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import com.pmascotas.permascotas.model.entity.Usuario;
 import com.pmascotas.permascotas.repository.UsuarioRepository;
 
 @Service
-public class UsuarioSevice {
+public class UsuarioService{
     @Autowired
     UsuarioRepository usuarioRepository;
  
@@ -20,17 +19,26 @@ public class UsuarioSevice {
     }
 
     // Consultar un usuario
-    public Optional<Usuario> consultarUsuarioPorId(String idUsuario) {
+    public Optional<Usuario> consultarUsuarioPorId(Long idUsuario) {
         return usuarioRepository.findById(idUsuario);
     }
 
+
+    public Usuario findByUserPassword(Long idUsuario, String password) {
+        Usuario usuario = usuarioRepository.findByUserPassword(idUsuario, password);
+        if( usuario == null) {
+            return new Usuario(0L, "","");
+        }
+        return  usuario;
+    }
+
     // Obtener una lista de usuarios
-    public ArrayList<Usuario> obtenerUsuarios() {
-    return  (ArrayList<Usuario>) usuarioRepository.findAll();
+    public List<Usuario> obtenerUsuarios() {
+        return  (List<Usuario>) usuarioRepository.findAll();
     }
 
     // Elimiar usuario
-    public boolean eliminarUsuario(String idUsuario) {
+    public boolean eliminarUsuario(Long idUsuario) {
         try {
             usuarioRepository.deleteById(idUsuario);
             return true;

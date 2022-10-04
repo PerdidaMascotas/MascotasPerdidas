@@ -2,6 +2,7 @@ package com.pmascotas.permascotas.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,58 +15,48 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mascota", unique = true, nullable = false)
-    private String idMascota;
+    private Integer idMascota;
     @Column(name = "id_usuario", unique = true, nullable = false)
-    private String idUsuario;
+    private Long idUsuario;
     @Column(name = "nombre_mascota")
     private String nombreMascota;
     @Column(name = "tipo_mascota")
     private char tipoMascota;
     @Column(name = "especie")
     private String especie;
-    @Column(name = "raza")
-    private String raza;
     @Column(name = "tamanio")
     private String tamanio;
-    @Column(name = "sexo")
-    private char sexo;
     @Column(name = "edad")
     private Integer edad;
     @Column(name = "color")
     private String color;
-    @Column(name = "chip")
-    private boolean chip;
     @Column(name = "comentarios")
     private String comentarios;
-    @Column(name = "fecha_registro")
-    private Integer fechaRegistro;
-    @Column(name = "imagen_url")
-    private char imangenUrl;
     @Column(name = "estado")
     private char estado;
 
     // Relación de muchos a uno.
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario", nullable=false, insertable = false, updatable = false)
     private Usuario usuario;
 
     public Mascota() {
         // Constructor por defecto
     }
 
-    public String getIdMascota() {
+    public Integer getIdMascota() {
         return idMascota;
     }
 
-    public void setIdMascota(String idMascota) {
+    public void setIdMascota(Integer idMascota) {
         this.idMascota = idMascota;
     }
 
-    public String getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -93,28 +84,12 @@ public class Mascota {
         this.especie = especie;
     }
 
-    public String getRaza() {
-        return raza;
-    }
-
-    public void setRaza(String raza) {
-        this.raza = raza;
-    }
-
     public String getTamanio() {
         return tamanio;
     }
 
     public void setTamanio(String tamanio) {
         this.tamanio = tamanio;
-    }
-
-    public char getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
     }
 
     public Integer getEdad() {
@@ -133,13 +108,7 @@ public class Mascota {
         this.color = color;
     }
 
-    public boolean isChip() {
-        return chip;
-    }
 
-    public void setChip(boolean chip) {
-        this.chip = chip;
-    }
 
     public String getComentarios() {
         return comentarios;
@@ -147,22 +116,6 @@ public class Mascota {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
-    }
-
-    public Integer getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(Integer fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
-    public char getImangenUrl() {
-        return imangenUrl;
-    }
-
-    public void setImangenUrl(char imangenUrl) {
-        this.imangenUrl = imangenUrl;
     }
 
     public char getEstado() {
